@@ -3,7 +3,7 @@
 }
 .reveal-modal .info .attribution {
     color: rgb(73, 85, 96);
-    font-family: "Ubuntu";
+    font-family: 'Ubuntu', sans-serif;
     line-height: 75px;
 }
 .reveal-modal .info .attribution b {

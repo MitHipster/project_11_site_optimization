@@ -3,7 +3,7 @@
 }
 .image-grid h2 {
     color: rgb(73, 85, 96);
-    font-family: "Arvo";
+    font-family: 'Arvo', serif;
     font-size: 1.5rem;
     font-style: italic;
     font-weight: normal;
@@ -33,7 +33,7 @@
 }
 .image-grid .image .info .attribution {
     color: rgb(73, 85, 96);
-    font-family: "Ubuntu";
+    font-family: 'Ubuntu', sans-serif;
     font-size: 0.95rem;
 }
 .image-grid .image .info .attribution b {
