@@ -1,0 +1,26 @@
+{
+  "name": "project_11_site_optimization",
+  "version": "1.0.0",
+  "description": "Treehouse Project 11",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MitHipster/project_11_site_optimization.git"
+  },
+  "keywords": [
+    "optimization"
+  ],
+  "author": "Tim Acker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MitHipster/project_11_site_optimization/issues"
+  },
+  "homepage": "https://github.com/MitHipster/project_11_site_optimization#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1"
+  }
+}
