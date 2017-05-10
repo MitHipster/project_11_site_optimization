@@ -33,7 +33,7 @@ const sourceBuild = [
   'src/css/application.min.css',
   'src/js/app.min.js',
   'src/index.html',
-  'src/img/avatars/**',
+  'src/img/avatars/*.jpg',
   'src/img/photos/large/**',
   'src/img/photos/*.jpg'
 ];
