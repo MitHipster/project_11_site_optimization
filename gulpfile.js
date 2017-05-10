@@ -4,8 +4,8 @@
 const gulp = require('gulp'),
       concatCss = require('gulp-concat-css'),
       concatJs = require('gulp-concat'),
-      minJs = require('gulp-uglify'),
       minCss = require('gulp-csso'),
+      minJs = require('gulp-uglify'),
       rename = require('gulp-rename'),
       maps = require('gulp-sourcemaps'),
       del = require('del');
@@ -36,27 +36,20 @@ const sourceBuild = [
   'src/img/**'
 ];
 
+gulp.task('concatStylesheets', () => {
+  return gulp.src(sourceCss)
+    .pipe(maps.init())
+    .pipe(concatJs('application.css'))
+    .pipe(maps.write('./'))
+    .pipe(gulp.dest('src/css'));
+});
+
 gulp.task('concatScripts', () => {
   return gulp.src(sourceJs)
     .pipe(maps.init())
     .pipe(concatJs('app.js'))
     .pipe(maps.write('./'))
     .pipe(gulp.dest('src/js'));
-});
-
-gulp.task('concatStylesheets', () => {
-  return gulp.src(sourceCss)
-    .pipe(maps.init())
-    .pipe(concatCss('application.css'))
-    .pipe(maps.write('./'))
-    .pipe(gulp.dest('src/css'));
-});
-
-gulp.task('minifyScripts', ['concatScripts'], () => {
-  return gulp.src('src/js/app.js')
-    .pipe(minJs())
-    .pipe(rename('app.min.js'))
-    .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('minifyStylesheets', ['concatStylesheets'], () => {
@@ -66,11 +59,18 @@ gulp.task('minifyStylesheets', ['concatStylesheets'], () => {
     .pipe(gulp.dest('dist/css'));
 });
 
+gulp.task('minifyScripts', ['concatScripts'], () => {
+  return gulp.src('src/js/app.js')
+    .pipe(minJs())
+    .pipe(rename('app.min.js'))
+    .pipe(gulp.dest('dist/js'));
+});
+
 gulp.task('clean', function () {
   del(['dist', 'src/css/application.css*', 'src/js/app*.js*']);
 });
 
-gulp.task('build', ['minifyScripts', 'minifyStylesheets'], () => {
+gulp.task('build', ['minifyStylesheets', 'minifyScripts'], () => {
   return gulp.src(sourceBuild, {base: 'src'})
     .pipe(gulp.dest('dist'));
 });
