@@ -8,7 +8,8 @@ const gulp = require('gulp'),
       minJs = require('gulp-uglify'),
       rename = require('gulp-rename'),
       maps = require('gulp-sourcemaps'),
-      del = require('del');
+      del = require('del'),
+      imgResize = require('gulp-image-resize');
 
 const sourceCss = [
   'src/css/normalize.css',
@@ -33,10 +34,11 @@ const sourceBuild = [
   'src/css/application.min.css',
   'src/js/app.min.js',
   'src/index.html',
-  'src/img/avatars/*.jpg',
-  'src/img/photos/large/**',
-  'src/img/photos/*.jpg'
+  'src/img/avatars/*.jpg'
 ];
+
+const sourceImg = 'src/img/photos/orig/p*.jpg'
+const sourceHdr = 'src/img/photos/orig/header.jpg'
 
 gulp.task('concatStylesheets', () => {
   return gulp.src(sourceCss)
@@ -68,7 +70,47 @@ gulp.task('minifyScripts', ['concatScripts'], () => {
     .pipe(gulp.dest('dist/js'));
 });
 
-gulp.task('clean', function () {
+gulp.task('imgResizeSm', () => {
+  gulp.src(sourceImg)
+    .pipe(imgResize({
+      width: 600,
+      quality: 0.8,
+      imageMagick: true
+    }))
+    .pipe(gulp.dest('dist/img/photos'));
+});
+
+gulp.task('imgResizeLg', () => {
+  gulp.src(sourceImg)
+    .pipe(imgResize({
+      width: 900,
+      quality: 0.9,
+      imageMagick: true
+    }))
+    .pipe(gulp.dest('dist/img/photos/large'));
+});
+
+gulp.task('imgResizeHdr', () => {
+  gulp.src(sourceHdr)
+    .pipe(imgResize({
+      percentage: 50,
+      quality: 0.9,
+      imageMagick: true
+    }))
+    .pipe(gulp.dest('dist/img/photos/large'));
+});
+
+gulp.task('imgResizePhotos', ['cleanPhotos'], () => {
+  gulp.start('imgResizeSm');
+  gulp.start('imgResizeLg');
+  gulp.start('imgResizeHdr');
+})
+
+gulp.task('cleanPhotos', () => {
+  del('dist/img/photos');
+});
+
+gulp.task('clean', () => {
   del(['dist', 'src/css/application.css*', 'src/js/app*.js*']);
 });
 
