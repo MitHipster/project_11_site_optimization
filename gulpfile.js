@@ -7,6 +7,7 @@ const gulp = require('gulp'),
       minCss = require('gulp-csso'),
       minJs = require('gulp-uglify'),
       rename = require('gulp-rename'),
+      gzip = require('gulp-gzip'),
       maps = require('gulp-sourcemaps'),
       del = require('del'),
       imgResize = require('gulp-image-resize');
@@ -37,8 +38,8 @@ const sourceBuild = [
   'src/img/avatars/*.jpg'
 ];
 
-const sourceImg = 'src/img/photos/orig/p*.jpg'
-const sourceHdr = 'src/img/photos/orig/header.jpg'
+const sourceImg = 'src/img/photos/orig/p*.jpg';
+const sourceHdr = 'src/img/photos/orig/header.jpg';
 
 gulp.task('concatStylesheets', () => {
   return gulp.src(sourceCss)
@@ -60,6 +61,7 @@ gulp.task('minifyStylesheets', ['concatStylesheets'], () => {
   return gulp.src('src/css/application.css')
     .pipe(minCss())
     .pipe(rename('application.min.css'))
+    .pipe(gzip())
     .pipe(gulp.dest('dist/css'));
 });
 
@@ -67,6 +69,7 @@ gulp.task('minifyScripts', ['concatScripts'], () => {
   return gulp.src('src/js/app.js')
     .pipe(minJs())
     .pipe(rename('app.min.js'))
+    .pipe(gzip())
     .pipe(gulp.dest('dist/js'));
 });
 
@@ -104,7 +107,7 @@ gulp.task('imgResizePhotos', ['cleanPhotos'], () => {
   gulp.start('imgResizeSm');
   gulp.start('imgResizeLg');
   gulp.start('imgResizeHdr');
-})
+});
 
 gulp.task('cleanPhotos', () => {
   del('dist/img/photos');

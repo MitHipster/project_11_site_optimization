@@ -7,7 +7,7 @@
     "styleActiveLine": true,
     "livedev.multibrowser": true,
     "highlightMatches": true,
-    "linting.collapsed": true,
+    "linting.collapsed": false,
     "language": {
         "javascript": {
             "linting.prefer": "JSHint",
